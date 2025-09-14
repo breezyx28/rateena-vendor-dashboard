@@ -10,6 +10,7 @@ const Navdata = () => {
   const [isVendor, setIsVendor] = useState<boolean>(false);
   const [isUser, setIsUser] = useState<boolean>(false);
   const [isProduct, setIsProduct] = useState<boolean>(false);
+  const [isCategory, setIsCategory] = useState<boolean>(false);
   const [iscurrentState, setIscurrentState] = useState("Dashboard");
 
   function updateIconSidebar(e: any) {
@@ -40,7 +41,18 @@ const Navdata = () => {
     if (iscurrentState !== "Products") {
       setIsProduct(false);
     }
-  }, [history, isVendor, isUser, iscurrentState, isDashboard, isProduct]);
+    if (iscurrentState !== "Categories") {
+      setIsCategory(false);
+    }
+  }, [
+    history,
+    isVendor,
+    isUser,
+    iscurrentState,
+    isDashboard,
+    isProduct,
+    isCategory,
+  ]);
 
   const menuItems: any = [
     {
@@ -57,33 +69,33 @@ const Navdata = () => {
         setIscurrentState("Dashboard");
       },
     },
-    {
-      id: "vendors",
-      label: t("Vendors"),
-      icon: "ri-store-3-line",
-      link: "/#",
-      stateVariables: isVendor,
-      click: function (e: any) {
-        e.preventDefault();
-        setIsVendor(!isVendor);
-        setIscurrentState("Vendors");
-        updateIconSidebar(e);
-      },
-      subItems: [
-        {
-          id: "vendors-list",
-          label: t("List"),
-          link: "/dashboard/vendors",
-          parentId: "vendors",
-        },
-        {
-          id: "add-vendor-page",
-          label: t("Create"),
-          link: "/dashboard/vendors/add",
-          parentId: "vendors",
-        },
-      ],
-    },
+    // {
+    //   id: "vendors",
+    //   label: t("Vendors"),
+    //   icon: "ri-store-3-line",
+    //   link: "/#",
+    //   stateVariables: isVendor,
+    //   click: function (e: any) {
+    //     e.preventDefault();
+    //     setIsVendor(!isVendor);
+    //     setIscurrentState("Vendors");
+    //     updateIconSidebar(e);
+    //   },
+    //   subItems: [
+    //     {
+    //       id: "vendors-list",
+    //       label: t("List"),
+    //       link: "/dashboard/vendors",
+    //       parentId: "vendors",
+    //     },
+    //     {
+    //       id: "add-vendor-page",
+    //       label: t("Create"),
+    //       link: "/dashboard/vendors/add",
+    //       parentId: "vendors",
+    //     },
+    //   ],
+    // },
     {
       id: "products",
       label: "Products",
@@ -108,6 +120,33 @@ const Navdata = () => {
           label: t("Create"),
           link: "/dashboard/products/add",
           parentId: "products",
+        },
+      ],
+    },
+    {
+      id: "categories",
+      label: "Categories",
+      icon: "ri-folder-3-line", // Categories icon
+      link: "/#",
+      stateVariables: isCategory,
+      click: function (e: any) {
+        e.preventDefault();
+        setIsCategory(!isCategory);
+        setIscurrentState("Categories");
+        updateIconSidebar(e);
+      },
+      subItems: [
+        {
+          id: "categories-list",
+          label: t("List"),
+          link: "/dashboard/categories",
+          parentId: "categories",
+        },
+        {
+          id: "add-product-page",
+          label: t("Create"),
+          link: "/dashboard/categories/add",
+          parentId: "categories",
         },
       ],
     },

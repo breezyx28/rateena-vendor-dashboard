@@ -27,6 +27,8 @@ import VendorAdd from "pages/Vendors/vendor-add";
 import VendorProductDetails from "pages/Vendors/vendor-product-details";
 import Products from "pages/Products";
 import CreateProduct from "pages/Products/create-product";
+import Categories from "pages/Categories";
+import CreateCategory from "pages/Categories/create-category";
 
 const authProtectedRoutes = [
   // Admin Pages
@@ -38,6 +40,9 @@ const authProtectedRoutes = [
 
   { path: "/dashboard/products", component: <Products /> }, // Used Later
   { path: "/dashboard/products/add", component: <CreateProduct /> }, // Used Later
+
+  { path: "/dashboard/categories", component: <Categories /> }, // Used Later
+  { path: "/dashboard/categories/add", component: <CreateCategory /> }, // Used Later
 
   {
     path: "/dashboard/vendors/:vendorId/product/:productId",
