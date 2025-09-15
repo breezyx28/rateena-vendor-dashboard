@@ -1,55 +1,20 @@
-import { createAsyncThunk } from "@reduxjs/toolkit";
-import { toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+import { invoicesListError, invoicesListSuccess } from "./reducer";
+import { getInvoicesList } from "services/invoices";
 
-//Include Both Helper File with needed methods
-import {
-  getInvoices as getInvoicesApi,
-  addNewInvoice as addNewInvoiceApi,
-  updateInvoice as updateInvoiceApi,
-  deleteInvoice as deleteInvoiceApi
-} from "../../helpers/fakebackend_helper";
-
-export const getInvoices = createAsyncThunk("invoice/getInvoices", async () => {
+export const getInvoicesListQuery = () => async (dispatch: any) => {
   try {
-    const response = getInvoicesApi();
-    return response;
-  } catch (error) {
-    return error;
-  }
-});
+    let response;
 
-export const addNewInvoice = createAsyncThunk("invoice/addNewInvoice", async (invoice:any) => {
-  try {
-    const response = addNewInvoiceApi(invoice);
-    toast.success("Invoice Added Successfully", { autoClose: 3000 });
-    return response;
-  } catch (error) {
-    toast.error("Invoice Added Failed", { autoClose: 3000 });
-    return error;
-  }
-});
+    response = getInvoicesList();
 
-export const updateInvoice = createAsyncThunk("invoice/updateInvoice", async (invoice:any) => {
-  try {
-    const response = updateInvoiceApi(invoice);
-    toast.success("Invoice Updated Successfully", { autoClose: 3000 });
     const data = await response;
-    return data;
-  } catch (error) {
-    toast.error("Invoice Updated Failed", { autoClose: 3000 });
-    return error;
-  }
-});
 
-export const deleteInvoice = createAsyncThunk("invoice/deleteInvoice", async (invoice:any) => {
-  try {
-    const response = deleteInvoiceApi(invoice);
-    toast.success("Invoice Delete Successfully", { autoClose: 3000 });
-    return { invoice, ...response };
+    if (data) {
+      dispatch(invoicesListSuccess(data));
+    }
+  } catch (error: any) {
+    console.log("errors: ", error);
+
+    dispatch(invoicesListError(error));
   }
-  catch (error) {
-    toast.error("Invoice Delete Failed", { autoClose: 3000 });
-    return error;
-  }
-});
+};

@@ -1,3 +1,5 @@
+import { vendorId } from "./api-handles";
+
 //REGISTER
 export const POST_FAKE_REGISTER = "/auth/signup";
 
@@ -50,9 +52,12 @@ export const POST_RESET_USERS_PASSWORD = "/users/admin/reset-password";
 export const POST_USER_DELETE = "/users/delete/{userId}";
 
 // Orders
-export const GET_ORDERS_LIST = "/orders";
+export const GET_ORDERS_LIST = `/vendors/${vendorId}/orders`;
 export const GET_ORDER = "/orders/{orderId}";
 export const GET_ORDER_INVOICE = "/invoices/order/{orderId}";
+
+// Orders
+export const GET_INVOICE_LIST = `/vendors/${vendorId}/invoices`;
 
 // Notifications
 export const GET_NOTIFICATIONS = "/users/notifications";

@@ -5,3 +5,5 @@ export type TOrderStatus =
   | "CONFIRMED"
   | "DELIVERED"
   | "CANCELED";
+
+export type TPaymentStatus = "PAID" | "UNPAID";

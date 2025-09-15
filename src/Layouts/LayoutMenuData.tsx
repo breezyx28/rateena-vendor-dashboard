@@ -11,6 +11,7 @@ const Navdata = () => {
   const [isUser, setIsUser] = useState<boolean>(false);
   const [isProduct, setIsProduct] = useState<boolean>(false);
   const [isCategory, setIsCategory] = useState<boolean>(false);
+  const [isInvoice, setIsInvoice] = useState<boolean>(false);
   const [iscurrentState, setIscurrentState] = useState("Dashboard");
 
   function updateIconSidebar(e: any) {
@@ -44,6 +45,9 @@ const Navdata = () => {
     if (iscurrentState !== "Categories") {
       setIsCategory(false);
     }
+    if (iscurrentState !== "Invoices") {
+      setIsInvoice(false);
+    }
   }, [
     history,
     isVendor,
@@ -52,6 +56,7 @@ const Navdata = () => {
     isDashboard,
     isProduct,
     isCategory,
+    isInvoice,
   ]);
 
   const menuItems: any = [
@@ -69,33 +74,6 @@ const Navdata = () => {
         setIscurrentState("Dashboard");
       },
     },
-    // {
-    //   id: "vendors",
-    //   label: t("Vendors"),
-    //   icon: "ri-store-3-line",
-    //   link: "/#",
-    //   stateVariables: isVendor,
-    //   click: function (e: any) {
-    //     e.preventDefault();
-    //     setIsVendor(!isVendor);
-    //     setIscurrentState("Vendors");
-    //     updateIconSidebar(e);
-    //   },
-    //   subItems: [
-    //     {
-    //       id: "vendors-list",
-    //       label: t("List"),
-    //       link: "/dashboard/vendors",
-    //       parentId: "vendors",
-    //     },
-    //     {
-    //       id: "add-vendor-page",
-    //       label: t("Create"),
-    //       link: "/dashboard/vendors/add",
-    //       parentId: "vendors",
-    //     },
-    //   ],
-    // },
     {
       id: "products",
       label: "Products",
@@ -161,6 +139,16 @@ const Navdata = () => {
       },
     },
     {
+      id: "invoices",
+      label: t("Invoices"),
+      icon: "ri-file-line",
+      link: "/dashboard/invoices",
+      click: function (e: any) {
+        e.preventDefault();
+        setIscurrentState("Invoices");
+      },
+    },
+    {
       id: "advertisements",
       label: t("Advertisements"),
       icon: "ri-advertisement-line",
@@ -197,6 +185,7 @@ const Navdata = () => {
         },
       ],
     },
+
     // {
     //   label: "pages",
     //   isHeader: true,

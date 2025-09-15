@@ -29,6 +29,7 @@ import Products from "pages/Products";
 import CreateProduct from "pages/Products/create-product";
 import Categories from "pages/Categories";
 import CreateCategory from "pages/Categories/create-category";
+import CustomersInvoices from "pages/CustomersInvoices";
 
 const authProtectedRoutes = [
   // Admin Pages
@@ -45,8 +46,8 @@ const authProtectedRoutes = [
   { path: "/dashboard/categories/add", component: <CreateCategory /> }, // Used Later
 
   {
-    path: "/dashboard/vendors/:vendorId/product/:productId",
-    component: <VendorProductDetails />,
+    path: "/dashboard/invoices",
+    component: <CustomersInvoices />,
   },
   { path: "/dashboard/customers", component: <Customers /> },
   { path: "/dashboard/customers/orders", component: <CustomersOrders /> },
