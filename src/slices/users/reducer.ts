@@ -4,46 +4,46 @@ export const initialState = {
   success: false,
   error: false,
   loading: false,
-  adminUserAdded: false,
-  adminUserUpdated: false,
-  adminUsersListSuccess: null,
-  adminUserData: null,
-  adminUserError: null,
+  userAdded: false,
+  userUpdated: false,
+  usersListSuccess: null,
+  userData: null,
+  userError: null,
 };
 
-const adminUsersSlice = createSlice({
-  name: "adminUsers",
+const usersSlice = createSlice({
+  name: "users",
   initialState,
   reducers: {
-    adminUserSuccess(state, action) {
-      state.adminUserData = action.payload;
+    userSuccess(state, action) {
+      state.userData = action.payload;
       state.success = true;
       state.error = false;
     },
 
-    adminUserUpdated(state) {
-      state.adminUserUpdated = true;
+    userUpdated(state) {
+      state.userUpdated = true;
       state.success = true;
       state.error = false;
     },
-    adminUserAdded(state) {
-      state.adminUserAdded = true;
+    userAdded(state) {
+      state.userAdded = true;
       state.success = true;
       state.error = false;
     },
 
-    adminUsersListSuccess(state, action) {
-      state.adminUsersListSuccess = action.payload;
+    usersListSuccess(state, action) {
+      state.usersListSuccess = action.payload;
       state.success = true;
       state.error = false;
     },
-    adminUsersListError(state, action) {
-      state.adminUserError = action.payload;
+    usersListError(state, action) {
+      state.userError = action.payload;
       state.success = false;
       state.error = true;
     },
-    adminUsersError(state, action) {
-      state.adminUserError = action.payload;
+    usersError(state, action) {
+      state.userError = action.payload;
       state.success = false;
       state.error = true;
     },
@@ -51,12 +51,12 @@ const adminUsersSlice = createSlice({
 });
 
 export const {
-  adminUsersListSuccess,
-  adminUsersListError,
-  adminUserSuccess,
-  adminUsersError,
-  adminUserUpdated,
-  adminUserAdded,
-} = adminUsersSlice.actions;
+  usersListSuccess,
+  usersListError,
+  userSuccess,
+  usersError,
+  userUpdated,
+  userAdded,
+} = usersSlice.actions;
 
-export default adminUsersSlice.reducer;
+export default usersSlice.reducer;

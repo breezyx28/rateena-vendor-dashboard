@@ -706,5 +706,20 @@
   "Viewed": "تم عرضه",
   "Partial": "جزئي",
   "Void": "ملغي",
-  "Search invoice ...": "أبحث عن فاتورة"
+  "Search invoice ...": "أبحث عن فاتورة",
+  "Do you want to add this user?": "هل تريد إضافة هذا المستخدم؟",
+  "Success!": "نجح!",
+  "User added successfully": "تم إضافة المستخدم بنجاح",
+  "Yes, add it!": "نعم، أضفه!",
+  "Save User": "حفظ المستخدم",
+  "Do you want to update this user?": "هل تريد تحديث هذا المستخدم؟",
+  "Yes, update it!": "نعم، حدثه!",
+  "User updated successfully": "تم تحديث المستخدم بنجاح",
+  "This action cannot be undone!": "لا يمكن التراجع عن هذا الإجراء!",
+  "Yes, delete it!": "نعم، احذفه!",
+  "Deleted!": "تم الحذف!",
+  "User has been deleted successfully": "تم حذف المستخدم بنجاح",
+  "Go to Users List": "الذهاب إلى قائمة المستخدمين",
+  "Stay Here": "البقاء هنا",
+  "Don't Ask Again": "لا تسأل مرة أخرى"
 }

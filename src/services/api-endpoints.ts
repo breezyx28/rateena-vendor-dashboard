@@ -45,11 +45,11 @@ export const POST_CUSTOMER_UPDATE = "/customers/save";
 export const POST_CUSTOMER_DELETE = "/users/delete";
 
 // Admin Users
-export const GET_USERS_LIST = "/users/admin";
+export const GET_USERS_LIST = `/vendors/${vendorId}/users`;
 export const GET_USER = "/users/{userId}";
-export const POST_USER_CREATE_OR_UPDATE = "/users/add";
+export const POST_USER_CREATE_OR_UPDATE = "vendors/add/user";
 export const POST_RESET_USERS_PASSWORD = "/users/admin/reset-password";
-export const POST_USER_DELETE = "/users/delete/{userId}";
+export const POST_USER_DELETE = "/vendors/delete/{userId}";
 
 // Orders
 export const GET_ORDERS_LIST = `/vendors/${vendorId}/orders`;

@@ -129,6 +129,33 @@ const Navdata = () => {
       ],
     },
     {
+      id: "users",
+      label: "Users",
+      icon: "ri-group-line", // Categories icon
+      link: "/#",
+      stateVariables: isUser,
+      click: function (e: any) {
+        e.preventDefault();
+        setIsUser(!isUser);
+        setIscurrentState("Users");
+        updateIconSidebar(e);
+      },
+      subItems: [
+        {
+          id: "users-list",
+          label: t("List"),
+          link: "/dashboard/users",
+          parentId: "users",
+        },
+        {
+          id: "add-user-page",
+          label: t("Create"),
+          link: "/dashboard/users/add",
+          parentId: "users",
+        },
+      ],
+    },
+    {
       id: "orders",
       label: "Orders",
       icon: "ri-shopping-bag-3-line",
@@ -148,43 +175,43 @@ const Navdata = () => {
         setIscurrentState("Invoices");
       },
     },
-    {
-      id: "advertisements",
-      label: t("Advertisements"),
-      icon: "ri-advertisement-line",
-      link: "/dashboard/advertisements",
-      click: function (e: any) {
-        e.preventDefault();
-        setIscurrentState("Advertisements");
-      },
-    },
-    {
-      id: "users",
-      label: t("Users"),
-      icon: "ri-group-line",
-      link: "/#",
-      stateVariables: isUser,
-      click: function (e: any) {
-        e.preventDefault();
-        setIsUser(!isUser);
-        setIscurrentState("Users");
-        updateIconSidebar(e);
-      },
-      subItems: [
-        {
-          id: "admin-users-list",
-          label: t("Admins"),
-          link: "/dashboard/admin-users",
-          parentId: "users",
-        },
-        {
-          id: "customers-list",
-          label: t("Customers"),
-          link: "/dashboard/customers",
-          parentId: "users",
-        },
-      ],
-    },
+    // {
+    //   id: "advertisements",
+    //   label: t("Advertisements"),
+    //   icon: "ri-advertisement-line",
+    //   link: "/dashboard/advertisements",
+    //   click: function (e: any) {
+    //     e.preventDefault();
+    //     setIscurrentState("Advertisements");
+    //   },
+    // },
+    // {
+    //   id: "users",
+    //   label: t("Users"),
+    //   icon: "ri-group-line",
+    //   link: "/#",
+    //   stateVariables: isUser,
+    //   click: function (e: any) {
+    //     e.preventDefault();
+    //     setIsUser(!isUser);
+    //     setIscurrentState("Users");
+    //     updateIconSidebar(e);
+    //   },
+    //   subItems: [
+    //     {
+    //       id: "admin-users-list",
+    //       label: t("Admins"),
+    //       link: "/dashboard/admin-users",
+    //       parentId: "users",
+    //     },
+    //     {
+    //       id: "customers-list",
+    //       label: t("Customers"),
+    //       link: "/dashboard/customers",
+    //       parentId: "users",
+    //     },
+    //   ],
+    // },
 
     // {
     //   label: "pages",

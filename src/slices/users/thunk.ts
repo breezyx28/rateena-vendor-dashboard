@@ -1,34 +1,34 @@
 import {
-  adminUserAdded,
-  adminUserSuccess,
-  adminUserUpdated,
-  adminUsersError,
-  adminUsersListError,
-  adminUsersListSuccess,
+  userAdded,
+  userSuccess,
+  userUpdated,
+  usersError,
+  usersListError,
+  usersListSuccess,
 } from "./reducer";
 import {
-  getAdminUser,
-  getAdminUsersList,
-  postAddOrUpdateAdminUser,
-  postDeleteAdminUser,
-  postResetAdminUserPassword,
-} from "services/admin-user";
+  getUser,
+  getUsersList,
+  postAddOrUpdateUser,
+  postDeleteUser,
+  postResetUserPassword,
+} from "services/users";
 
-export const getAdminUsersListQuery = () => async (dispatch: any) => {
+export const getVendorUsersListQuery = () => async (dispatch: any) => {
   try {
     let response;
 
-    response = getAdminUsersList();
+    response = getUsersList();
 
     const data = await response;
 
     if (data) {
-      dispatch(adminUsersListSuccess(data));
+      dispatch(usersListSuccess(data));
     }
   } catch (error: any) {
     console.log("errors: ", error);
 
-    dispatch(adminUsersListError(error));
+    dispatch(usersListError(error));
   }
 };
 
@@ -36,17 +36,17 @@ export const getAdminUserQuery = (userId: any) => async (dispatch: any) => {
   try {
     let response;
 
-    response = getAdminUser(userId);
+    response = getUser(userId);
 
     const data = await response;
 
     if (data) {
-      dispatch(adminUserSuccess(data));
+      dispatch(userSuccess(data));
     }
   } catch (error: any) {
     console.log("errors: ", error);
 
-    dispatch(adminUsersListError(error));
+    dispatch(usersListError(error));
   }
 };
 
@@ -54,21 +54,23 @@ export const addOrUpdateUserMutation = (body: any) => async (dispatch: any) => {
   try {
     let response;
 
-    response = postAddOrUpdateAdminUser(body);
+    response = postAddOrUpdateUser(body);
 
     const data = await response;
 
     if (data) {
       if (body?.userId) {
-        dispatch(adminUserUpdated());
+        dispatch(userUpdated());
+        dispatch(userSuccess(data));
       } else {
-        dispatch(adminUserAdded());
+        dispatch(userAdded());
+        dispatch(userSuccess(data));
       }
     }
   } catch (error: any) {
     console.log("errors: ", error);
 
-    dispatch(adminUsersError(error));
+    dispatch(usersError(error));
   }
 };
 
@@ -77,17 +79,17 @@ export const deleteAdminUserMutation =
     try {
       let response;
 
-      response = postDeleteAdminUser({ userId });
+      response = postDeleteUser({ userId });
 
       const data = await response;
 
       if (data) {
-        dispatch(adminUserUpdated());
-        dispatch(getAdminUsersListQuery());
+        dispatch(userUpdated());
+        dispatch(getVendorUsersListQuery());
       }
     } catch (error: any) {
       console.log("errors: ", error);
-      dispatch(adminUsersError(error));
+      dispatch(usersError(error));
     }
   };
 
@@ -96,16 +98,16 @@ export const resetAdminUserPasswordMutation =
     try {
       let response;
 
-      response = postResetAdminUserPassword(body);
+      response = postResetUserPassword(body);
 
       const data = await response;
 
       if (data) {
-        dispatch(adminUserUpdated());
+        dispatch(userUpdated());
       }
     } catch (error: any) {
       console.log("errors: ", error);
 
-      dispatch(adminUsersError(error));
+      dispatch(usersError(error));
     }
   };

@@ -15,7 +15,7 @@ import UserProfile from "../pages/Authentication/user-profile";
 import ResetPassword from "pages/Authentication/ResetPassword";
 import VerifyUser from "pages/Authentication/VerifyUser";
 import Alt401 from "pages/AuthenticationInner/Errors/Alt401";
-import AdminUsers from "pages/AdminUsers";
+import Users from "pages/Users";
 import Customers from "pages/Customers";
 import CustomersOrders from "pages/CustomersOrders";
 import Vendors from "pages/Vendors";
@@ -30,14 +30,14 @@ import CreateProduct from "pages/Products/create-product";
 import Categories from "pages/Categories";
 import CreateCategory from "pages/Categories/create-category";
 import CustomersInvoices from "pages/CustomersInvoices";
+import AddUser from "pages/Users/add-user";
 
 const authProtectedRoutes = [
   // Admin Pages
   { path: "/dashboard", component: <Dashboard /> },
-  { path: "/dashboard/admin-users", component: <AdminUsers /> },
-  { path: "/dashboard/vendors", component: <Vendors /> },
-  { path: "/dashboard/vendors/add", component: <VendorAdd /> },
-  { path: "/dashboard/vendors/:vendorId", component: <VendorProfile /> },
+  // { path: "/dashboard/vendors", component: <Vendors /> },
+  // { path: "/dashboard/vendors/add", component: <VendorAdd /> },
+  // { path: "/dashboard/vendors/:vendorId", component: <VendorProfile /> },
 
   { path: "/dashboard/products", component: <Products /> }, // Used Later
   { path: "/dashboard/products/add", component: <CreateProduct /> }, // Used Later
@@ -45,17 +45,28 @@ const authProtectedRoutes = [
   { path: "/dashboard/categories", component: <Categories /> }, // Used Later
   { path: "/dashboard/categories/add", component: <CreateCategory /> }, // Used Later
 
+  // Users
+  { path: "/dashboard/users", component: <Users /> },
+  { path: "/dashboard/users/add", component: <AddUser /> },
+
+  // Invoices
   {
     path: "/dashboard/invoices",
     component: <CustomersInvoices />,
   },
+
+  // Orders
   { path: "/dashboard/customers", component: <Customers /> },
   { path: "/dashboard/customers/orders", component: <CustomersOrders /> },
   {
     path: "/dashboard/customers/orders/:orderId",
     component: <CustomerOrderInvoiceDetails />,
   },
+
+  // Advertisements
   { path: "/dashboard/advertisements", component: <Advertisements /> },
+
+  // Fallback
   { path: "/index", component: <Dashboard /> },
 
   // { path: "/dashboard-analytics", component: <DashboardAnalytics /> },

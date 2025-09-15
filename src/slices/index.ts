@@ -25,8 +25,8 @@ import VendorsReducer from "./vendors/reducer";
 // Customers
 import CustomersReducer from "./customers/reducer";
 
-// Admin Users
-import AdminUsersReducer from "./users/reducer";
+// Users
+import UsersReducer from "./users/reducer";
 
 // Orders
 import OrdersReducer from "./orders/reducer";
@@ -113,7 +113,7 @@ const rootReducer = combineReducers({
   HomeDetails: HomeDetailsReducer,
   Vendors: VendorsReducer,
   Orders: OrdersReducer,
-  AdminUsers: AdminUsersReducer,
+  Users: UsersReducer,
   Customers: CustomersReducer,
   Advertisements: AdvertisementsReducer,
   Notifications: NotificationsReducer,

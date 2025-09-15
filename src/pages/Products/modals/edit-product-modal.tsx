@@ -73,18 +73,17 @@ const EditProductModal = ({
 
   React.useEffect(() => {
     if (vendorProductSuccess) {
-      console.log("vendorProductSuccess: ", vendorProductSuccess);
       Swal.fire({
-        title: "Product Updated Successfully...",
+        title: "Product Updated Successfully",
         icon: "success",
         timer: 2000,
         showConfirmButton: false,
+      }).then(() => {
+        dispatch(getVendorProductsQuery(vendorId));
+        tog_standard();
       });
-      dispatch(getVendorProductsQuery(vendorId));
-      tog_standard();
     }
     if (vendorError?.errors) {
-      console.log("vendorError: ", vendorError);
       Swal.fire({
         title: "Error updating product",
         icon: "error",
@@ -93,7 +92,7 @@ const EditProductModal = ({
       });
       validation.setErrors(vendorError);
     }
-  }, [vendorError, vendorProductSuccess, vendorCategories]);
+  }, [vendorError, vendorProductSuccess]);
 
   const validation: any = useFormik({
     enableReinitialize: true,
@@ -118,22 +117,34 @@ const EditProductModal = ({
       console.log("Validation errors:", validation.errors);
     },
     onSubmit: (values) => {
-      console.log("Form validation errors:", validation.errors);
-      const formData = new FormData();
+      Swal.fire({
+        title: t("Are you sure?"),
+        text: t("Do you want to update this product?"),
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: t("Yes, Update"),
+        cancelButtonText: t("Cancel")
+      }).then((result) => {
+        if (result.isConfirmed) {
+          const formData = new FormData();
 
-      const productPayload = {
-        productId: productData.productId,
-        vendor_id: Number(vendorId),
-        ...values,
-      };
+          const productPayload = {
+            productId: productData.productId,
+            vendor_id: Number(vendorId),
+            ...values,
+          };
 
-      formData.append("productPayload", JSON.stringify(productPayload));
+          formData.append("productPayload", JSON.stringify(productPayload));
 
-      selectedFiles.forEach((file, index) => {
-        formData.append(`productImages[${index}]`, file);
+          selectedFiles.forEach((file, index) => {
+            formData.append(`productImages[${index}]`, file);
+          });
+
+          dispatch(addVendorProductMutation(formData, vendorId));
+        }
       });
-
-      dispatch(addVendorProductMutation(formData, vendorId));
     },
   });
 

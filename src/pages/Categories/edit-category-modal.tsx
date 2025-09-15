@@ -86,13 +86,26 @@ const EditCategoryModal = ({
       isPublished: Yup.string().required("Please Select Status"),
     }),
     onSubmit: (values) => {
-      const formData = {
-        categoryId: categoryData?.category?.categoryId,
-        name: values.name,
-        ar_name: values.arName,
-        is_published: values.isPublished === "published",
-      };
-      dispatch(updateVendorCategoryMutation(formData, vendorId));
+      Swal.fire({
+        title: t("Are you sure?"),
+        text: t("Do you want to update this category?"),
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: t("Yes, Update"),
+        cancelButtonText: t("Cancel"),
+      }).then((result) => {
+        if (result.isConfirmed) {
+          const formData = {
+            categoryId: categoryData?.category?.categoryId,
+            name: values.name,
+            ar_name: values.arName,
+            is_published: values.isPublished === "published",
+          };
+          dispatch(updateVendorCategoryMutation(formData, vendorId));
+        }
+      });
     },
   });
 

@@ -1,6 +1,7 @@
 import React from "react";
 import { Button, Modal, ModalBody, ModalHeader } from "reactstrap";
 import { useTranslation } from "react-i18next";
+import Swal from "sweetalert2";
 
 interface DeleteConfirmationModalProps {
   modal_standard: boolean;
@@ -18,9 +19,29 @@ const DeleteConfirmationModal: React.FC<DeleteConfirmationModalProps> = ({
   userName,
 }) => {
   const { t } = useTranslation();
-  const handleConfirm = () => {
-    onConfirm();
-    tog_standard();
+  const handleConfirm = async () => {
+    const result = await Swal.fire({
+      title: t("Are you sure?"),
+      text: t("This action cannot be undone!"),
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#d33",
+      cancelButtonColor: "#3085d6",
+      confirmButtonText: t("Yes, delete it!"),
+      cancelButtonText: t("Cancel")
+    });
+
+    if (result.isConfirmed) {
+      onConfirm();
+      await Swal.fire({
+        title: t("Deleted!"),
+        text: t("User has been deleted successfully"),
+        icon: "success",
+        timer: 2000,
+        showConfirmButton: false
+      });
+      tog_standard();
+    }
   };
 
   return (
@@ -56,9 +77,6 @@ const DeleteConfirmationModal: React.FC<DeleteConfirmationModalProps> = ({
                 {t("User:")}{" "}<strong>{userName}</strong> ({t("ID:")}{" "}{userId})
               </p>
             )}
-            <p className="text-muted">
-              {t("This action cannot be undone. The user will be permanently removed from the system.")}
-            </p>
           </div>
         </ModalBody>
         <div className="modal-footer justify-content-center">

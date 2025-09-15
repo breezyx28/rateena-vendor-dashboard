@@ -1,21 +1,21 @@
-import React, { useState } from "react";
+import React from "react";
 import { Alert, Col, Form, Input, Label, Row } from "reactstrap";
 import { Button, Modal, ModalBody, ModalHeader } from "reactstrap";
 import { useDispatch, useSelector } from "react-redux";
 import { createSelector } from "reselect";
-import { addOrUpdateUserMutation } from "slices/thunks";
 import * as Yup from "yup";
 import { useFormik } from "formik";
-import { toast, ToastContainer } from "react-toastify";
+import Swal from "sweetalert2";
+import { resetAdminUserPasswordMutation } from "slices/thunks";
 import { useTranslation } from "react-i18next";
 
-interface AddModalProps {
+interface ResetPasswordModalProps {
   modal_standard: boolean;
   tog_standard: () => void;
   userId?: string;
 }
 
-const UpdateModal: React.FC<AddModalProps> = ({
+const ResetPasswordModal: React.FC<ResetPasswordModalProps> = ({
   modal_standard,
   tog_standard,
   userId,
@@ -23,48 +23,50 @@ const UpdateModal: React.FC<AddModalProps> = ({
   const { t } = useTranslation();
   const dispatch: any = useDispatch();
 
-  const selectLayoutState = (state: any) => state.AdminUsers;
+  const selectLayoutState = (state: any) => state.Users;
   const selectLayoutProperties = createSelector(selectLayoutState, (state) => ({
-    adminUsersError: state.adminUsersError,
-    adminUserUpdated: state.adminUserUpdated,
+    resetPasswordError: state.resetPasswordError,
+    resetPasswordSuccess: state.resetPasswordSuccess,
     error: state.error,
   }));
 
-  const { adminUsersError, error, adminUserUpdated } = useSelector(
+  const { resetPasswordError, resetPasswordSuccess, error } = useSelector(
     selectLayoutProperties
   );
 
   React.useEffect(() => {
-    if (adminUserUpdated) {
-      console.log("adminUserUpdated: ", adminUserUpdated);
+    if (resetPasswordSuccess) {
+      console.log("resetPasswordSuccess: ", resetPasswordSuccess);
     }
-    if (adminUsersError) {
-      console.log("adminUsersError: ", adminUsersError);
+    if (resetPasswordError) {
+      console.log("resetPasswordError: ", resetPasswordError);
     }
-  }, [adminUsersError, adminUserUpdated]);
+  }, [resetPasswordError, resetPasswordSuccess]);
 
   const validation: any = useFormik({
     enableReinitialize: true,
     initialValues: {
-      email: "",
       phone: "",
-      // password: "",
+      new_password: "",
+      new_password_confirmation: "",
     },
     validationSchema: Yup.object({
-      email: Yup.string().required(t("Please Enter Your Email")),
       phone: Yup.string().required(t("Please Enter Your Phone Number")),
-      // password: Yup.string().required("Please Enter Your Password"),
+      new_password: Yup.string().required(t("Please Enter Your New Password")),
+      new_password_confirmation: Yup.string()
+        .oneOf([Yup.ref("new_password")], t("Passwords must match"))
+        .required(t("Please Confirm Your Password")),
     }),
     onSubmit: (values) => {
       console.log("form-values: ", values);
-      dispatch(addOrUpdateUserMutation({ ...values }));
+      dispatch(resetAdminUserPasswordMutation(values));
     },
   });
 
   return (
     <React.Fragment>
       <Modal
-        id="myModal"
+        id="resetPasswordModal"
         isOpen={modal_standard}
         toggle={() => {
           tog_standard();
@@ -72,12 +74,12 @@ const UpdateModal: React.FC<AddModalProps> = ({
       >
         <ModalHeader
           className="modal-title"
-          id="myModalLabel"
+          id="resetPasswordModalLabel"
           toggle={() => {
             tog_standard();
           }}
         >
-          {t("Update User")}
+          {t("Reset Password")}
         </ModalHeader>
         <ModalBody>
           <Form
@@ -86,29 +88,29 @@ const UpdateModal: React.FC<AddModalProps> = ({
               validation.handleSubmit();
               return false;
             }}
-            id="add-admin-user-form"
+            id="reset-password-form"
           >
-            {adminUserUpdated ? (
+            {resetPasswordSuccess ? (
               <>
-                {toast(t("Your Redirect To Login Page..."), {
-                  position: "top-right",
-                  hideProgressBar: false,
-                  className: "bg-success text-white",
-                  progress: undefined,
-                  toastId: "",
+                {Swal.fire({
+                  title: t("Password Reset Successfully!"),
+                  icon: "success",
+                  timer: 2000,
+                  showConfirmButton: false,
                 })}
-                <ToastContainer autoClose={2000} limit={1} />
-                <Alert color="success">{t("Data Added Successfully")}</Alert>
+                <Alert color="success">
+                  {t("Password Reset Successfully!")}
+                </Alert>
               </>
             ) : null}
             <Row className="gy-4">
               <Col xxl={12} md={12}>
                 <div>
                   <Label htmlFor="phone" className="form-label">
-                    {t("Phone")}
+                    {t("phone")}
                   </Label>
                   <Input
-                    type="text"
+                    type="password"
                     className="form-control"
                     id="phone"
                     name="phone"
@@ -125,52 +127,55 @@ const UpdateModal: React.FC<AddModalProps> = ({
               </Col>
               <Col xxl={12} md={12}>
                 <div>
-                  <Label htmlFor="email" className="form-label">
-                    {t("Email")}
-                  </Label>
-                  <div className="form-icon">
-                    <Input
-                      type="email"
-                      className="form-control"
-                      id="email"
-                      name="email"
-                      onChange={validation.handleChange}
-                      onBlur={validation.handleBlur}
-                      value={validation.values.email || ""}
-                      invalid={
-                        validation.touched.email && validation.errors.email
-                          ? true
-                          : false
-                      }
-                    />
-                  </div>
-                </div>
-              </Col>
-              {/* <Col xxl={12} md={12}>
-                <div>
-                  <Label htmlFor="password" className="form-label">
-                    Password
+                  <Label htmlFor="new_password" className="form-label">
+                    {t("New Password")}
                   </Label>
                   <Input
                     type="password"
                     className="form-control"
-                    id="password"
-                    name="password"
+                    id="new_password"
+                    name="new_password"
                     onChange={validation.handleChange}
                     onBlur={validation.handleBlur}
-                    value={validation.values.password || ""}
+                    value={validation.values.new_password || ""}
                     invalid={
-                      validation.touched.password && validation.errors.password
+                      validation.touched.new_password &&
+                      validation.errors.new_password
                         ? true
                         : false
                     }
                   />
                 </div>
-              </Col> */}
+              </Col>
+              <Col xxl={12} md={12}>
+                <div>
+                  <Label
+                    htmlFor="new_password_confirmation"
+                    className="form-label"
+                  >
+                    {t("Confirm Password")}
+                  </Label>
+                  <Input
+                    type="password"
+                    className="form-control"
+                    id="new_password_confirmation"
+                    name="new_password_confirmation"
+                    onChange={validation.handleChange}
+                    onBlur={validation.handleBlur}
+                    value={validation.values.new_password_confirmation || ""}
+                    invalid={
+                      validation.touched.new_password_confirmation &&
+                      validation.errors.new_password_confirmation
+                        ? true
+                        : false
+                    }
+                  />
+                </div>
+              </Col>
             </Row>
             <Button
               type={"submit"}
-              id="add-admin-user-btn"
+              id="reset-password-btn"
               style={{
                 visibility: "hidden",
               }}
@@ -191,10 +196,10 @@ const UpdateModal: React.FC<AddModalProps> = ({
           <Button
             color="primary"
             onClick={() => {
-              document.getElementById("add-admin-user-btn")?.click();
+              document.getElementById("reset-password-btn")?.click();
             }}
           >
-            {t("Save changes")}
+            {t("Reset Password")}
           </Button>
         </div>
       </Modal>
@@ -202,4 +207,4 @@ const UpdateModal: React.FC<AddModalProps> = ({
   );
 };
 
-export default UpdateModal;
+export default ResetPasswordModal;
