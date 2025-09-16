@@ -38,6 +38,10 @@ const authProtectedRoutes = [
 
   { path: "/dashboard/products", component: <Products /> }, // Used Later
   { path: "/dashboard/products/add", component: <CreateProduct /> }, // Used Later
+  {
+    path: "/dashboard/products/:productId",
+    component: <VendorProductDetails />,
+  }, // Used Later
 
   { path: "/dashboard/categories", component: <Categories /> }, // Used Later
   { path: "/dashboard/categories/add", component: <CreateCategory /> }, // Used Later

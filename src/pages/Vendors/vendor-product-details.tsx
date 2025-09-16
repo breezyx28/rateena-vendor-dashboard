@@ -186,7 +186,8 @@ const VendorProductDetails = () => {
                 {selectedProduct.quantity <= 5 && (
                   <Alert color="warning" className="d-flex align-items-center">
                     <i className="ri-alert-line me-2"></i>
-                    {t("Low quantity alert! Only")} {selectedProduct?.quantity} {t("items left.")}
+                    {t("Low quantity alert! Only")} {selectedProduct?.quantity}{" "}
+                    {t("items left.")}
                     <Button
                       color="link"
                       className="p-0 ms-2 text-decoration-underline"
@@ -218,6 +219,7 @@ const VendorProductDetails = () => {
                 <h2 className="mb-0">
                   {selectedProduct?.name} / {selectedProduct?.arName}
                 </h2>
+
                 <div className="d-flex flex-wrap align-items-center gap-2">
                   <Badge color="success" className="fs-6">
                     {selectedProduct?.category?.name}
@@ -225,9 +227,33 @@ const VendorProductDetails = () => {
                   <Badge color="info" className="fs-6">
                     {t("Company Profit:")} {selectedProduct?.companyProfit}%
                   </Badge>
-                  {/* <Button color="danger" size="sm" onClick={toggleDeleteModal}>
-                    <i className="ri-delete-bin-line"></i>
-                  </Button> */}
+                  <Badge
+                    color={
+                      selectedProduct?.quantity <= 5 ? "warning" : "secondary"
+                    }
+                    className="fs-6 d-flex align-items-center gap-1"
+                  >
+                    {t("Quantity:")} {selectedProduct?.quantity}
+                    {selectedProduct?.quantity <= 5 ? (
+                      <i
+                        className="ri-alert-line"
+                        title={t("Low stock! Please update quantity")}
+                      ></i>
+                    ) : (
+                      ""
+                    )}
+                  </Badge>
+                  {selectedProduct?.quantity <= 5 && (
+                    <Button
+                      color="warning"
+                      size="sm"
+                      onClick={toggleEditModal}
+                      className="d-flex align-items-center gap-1"
+                    >
+                      <i className="ri-alert-line"></i>
+                      {t("Update Quantity")}
+                    </Button>
+                  )}
                   <Button color="primary" size="sm" onClick={toggleEditModal}>
                     <i className="ri-edit-line"></i>
                   </Button>
@@ -260,7 +286,9 @@ const VendorProductDetails = () => {
                     {/* Product Characteristics */}
                     <Card>
                       <CardBody>
-                        <h5 className="card-title">{t("Product Characteristics")}</h5>
+                        <h5 className="card-title">
+                          {t("Product Characteristics")}
+                        </h5>
                         {optionGroups.map((group: string) => (
                           <div
                             key={group}

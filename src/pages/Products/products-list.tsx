@@ -20,7 +20,6 @@ const ProductsList = ({ data }: { data: any[] }) => {
   const [selectedProduct, setSelectedProduct] = useState<any>({});
   const [approvalFilter, setApprovalFilter] = useState("all");
   const [publishFilter, setPublishFilter] = useState("all");
-  const navigate = useNavigate();
 
   const dispatch: any = useDispatch();
 
@@ -180,7 +179,7 @@ const ProductsList = ({ data }: { data: any[] }) => {
               </button>
 
               <Link
-                to={"product/" + row.productId}
+                to={"/dashboard/products/" + row.productId}
                 className="btn btn-sm btn-outline-info"
                 title={t("View Product")}
               >

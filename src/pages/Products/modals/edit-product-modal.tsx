@@ -23,6 +23,7 @@ import { imgURL, vendorId } from "services/api-handles";
 import {
   addVendorProductMutation,
   getVendorProductsQuery,
+  resetVendorProductState,
 } from "slices/thunks";
 
 const EditProductModal = ({
@@ -74,18 +75,19 @@ const EditProductModal = ({
   React.useEffect(() => {
     if (vendorProductSuccess) {
       Swal.fire({
-        title: "Product Updated Successfully",
+        title: t("Product Updated Successfully"),
         icon: "success",
         timer: 2000,
         showConfirmButton: false,
       }).then(() => {
         dispatch(getVendorProductsQuery(vendorId));
+        dispatch(resetVendorProductState());
         tog_standard();
       });
     }
     if (vendorError?.errors) {
       Swal.fire({
-        title: "Error updating product",
+        title: t("Error updating product"),
         icon: "error",
         timer: 2000,
         showConfirmButton: false,
@@ -98,14 +100,14 @@ const EditProductModal = ({
     enableReinitialize: true,
     initialValues: {
       name: productData?.name || "",
-      arName: productData?.arName || "",
+      ar_name: productData?.arName || "",
       quantity: productData?.quantity || "",
       isFood:
         productData?.isFood !== undefined
           ? productData.isFood
           : productData?.vendor?.vendorType === "RESTURANT",
       price: productData?.price || "",
-      companyProfit: productData?.companyProfit || "",
+      company_profit: productData?.companyProfit || "",
       duration: productData?.duration || "",
       category_id: productData?.category?.category_id || "",
       description: productData?.description || "",
@@ -125,7 +127,7 @@ const EditProductModal = ({
         confirmButtonColor: "#3085d6",
         cancelButtonColor: "#d33",
         confirmButtonText: t("Yes, Update"),
-        cancelButtonText: t("Cancel")
+        cancelButtonText: t("Cancel"),
       }).then((result) => {
         if (result.isConfirmed) {
           const formData = new FormData();
@@ -210,7 +212,7 @@ const EditProductModal = ({
 
                 <Col xxl={4} md={4}>
                   <div>
-                    <Label htmlFor="arName" className="form-label">
+                    <Label htmlFor="ar_name" className="form-label">
                       {t("Arabic Name")}
                     </Label>
                     <div className="form-icon">
@@ -218,19 +220,21 @@ const EditProductModal = ({
                         type="text"
                         className="form-control form-control-sm"
                         bsSize="sm"
-                        id="arName"
-                        name="arName"
+                        id="ar_name"
+                        name="ar_name"
                         onChange={validation.handleChange}
                         onBlur={validation.handleBlur}
-                        value={validation.values.arName || ""}
+                        value={validation.values.ar_name || ""}
                         invalid={
-                          validation.touched.arName && validation.errors.arName
+                          validation.touched.ar_name &&
+                          validation.errors.ar_name
                             ? true
                             : false
                         }
                       />
-                      {validation.touched.arName && validation.errors.arName ? (
-                        <FormFeedback>{validation.errors.arName}</FormFeedback>
+                      {validation.touched.ar_name &&
+                      validation.errors.ar_name ? (
+                        <FormFeedback>{validation.errors.ar_name}</FormFeedback>
                       ) : null}
                     </div>
                   </div>
@@ -248,7 +252,7 @@ const EditProductModal = ({
                         bsSize="sm"
                         id="quantity"
                         name="quantity"
-                        placeholder="Eg: 5"
+                        placeholder={t("Eg: 5")}
                         onChange={validation.handleChange}
                         onBlur={validation.handleBlur}
                         value={validation.values.quantity || ""}
@@ -297,7 +301,7 @@ const EditProductModal = ({
                         bsSize="sm"
                         id="price"
                         name="price"
-                        placeholder="Eg: 5"
+                        placeholder={t("Eg: 5")}
                         onChange={validation.handleChange}
                         onBlur={validation.handleBlur}
                         value={validation.values.price || ""}
@@ -316,7 +320,7 @@ const EditProductModal = ({
 
                 <Col xxl={4} md={4}>
                   <div>
-                    <Label htmlFor="companyProfit" className="form-label">
+                    <Label htmlFor="company_profit" className="form-label">
                       {t("Company Profit %")}
                     </Label>
                     <div className="form-icon">
@@ -324,25 +328,50 @@ const EditProductModal = ({
                         type="number"
                         className="form-control form-control-sm"
                         bsSize="sm"
-                        id="companyProfit"
-                        name="companyProfit"
-                        placeholder="Eg: 5"
+                        id="company_profit"
+                        name="company_profit"
+                        placeholder={t("Eg: 5")}
                         onChange={validation.handleChange}
                         onBlur={validation.handleBlur}
-                        value={validation.values.companyProfit || ""}
+                        value={validation.values.company_profit || ""}
                         invalid={
-                          validation.touched.companyProfit &&
-                          validation.errors.companyProfit
+                          validation.touched.company_profit &&
+                          validation.errors.company_profit
                             ? true
                             : false
                         }
                       />
-                      {validation.touched.companyProfit &&
-                      validation.errors.companyProfit ? (
+                      {validation.touched.company_profit &&
+                      validation.errors.company_profit ? (
                         <FormFeedback>
-                          {validation.errors.companyProfit}
+                          {validation.errors.company_profit}
                         </FormFeedback>
                       ) : null}
+                    </div>
+                  </div>
+                </Col>
+
+                <Col xxl={4} md={4}>
+                  <div>
+                    <Label htmlFor="final_price" className="form-label">
+                      {t("Final Price")}
+                    </Label>
+                    <div className="form-icon">
+                      <Input
+                        type="number"
+                        className="form-control form-control-sm"
+                        bsSize="sm"
+                        id="final_price"
+                        name="final_price"
+                        disabled
+                        readOnly
+                        value={
+                          validation.values.price && validation.values.company_profit
+                            ? (parseFloat(validation.values.price) + 
+                               (parseFloat(validation.values.price) * parseFloat(validation.values.company_profit) / 100)).toFixed(2)
+                            : validation.values.price || ""
+                        }
+                      />
                     </div>
                   </div>
                 </Col>

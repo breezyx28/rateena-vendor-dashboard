@@ -55,17 +55,17 @@ export const UpdateVendorProductvalidationSchema =
   (): Yup.ObjectSchema<any> => {
     return Yup.object({
       name: Yup.string(),
-      arName: Yup.string(),
+      ar_name: Yup.string(),
       duration: Yup.string(),
       isFood: Yup.boolean().required(),
-      companyProfit: Yup.number()
+      company_profit: Yup.number()
         .typeError("Company profit should be number only")
         .min(1),
       description: Yup.string().nullable(),
       ar_description: Yup.string().nullable(),
       quantity: Yup.number().typeError("Qunatity should be number only").min(1),
       price: Yup.number().typeError("Price should be number only").min(1),
-      categoryId: Yup.number(),
+      category_id: Yup.number(),
       // ✅ new mini form validation
       options: Yup.array().of(
         Yup.object().shape({

@@ -7,8 +7,7 @@ import { useTranslation } from "react-i18next";
 
 import { useDispatch, useSelector } from "react-redux";
 import { createSelector } from "reselect";
-import { getProductsQuery, getVendorProductsQuery } from "slices/thunks";
-import AddProductModal from "./modals/add-product-modal";
+import { getVendorProductsQuery } from "slices/thunks";
 import { vendorId } from "services/api-handles";
 
 const Products = () => {

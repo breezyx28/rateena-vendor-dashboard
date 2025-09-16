@@ -725,5 +725,13 @@
   "Please retry again, incorrect data.": "يرجى المحاولة مرة أخرى، البيانات غير صحيحة.",
   "Admin": "مدير",
   "Vendor": "بائع",
-  "Welcome": "مرحباً"
+  "Welcome": "مرحباً",
+  "Product Updated Successfully": "تم تحديث المنتج بنجاح",
+  "Error updating product": "خطأ في تحديث المنتج",
+  "Do you want to update this product?": "هل تريد تحديث هذا المنتج؟",
+  "Yes, Update": "نعم، حدث",
+  "Final Price": "السعر النهائي",
+  "Quantity:": "الكمية:",
+  "Low stock! Please update quantity": "مخزون قليل! يرجى تحديث الكمية",
+  "Update Quantity": "تحديث الكمية"
 }
