@@ -164,4 +164,17 @@ const getLoggedinUser = () => {
 const vendorId =
   getLoggedinUser()?.user?.user?.vendor?.vendor?.vendorId ?? null;
 
-export { APIClient, setAuthorization, getLoggedinUser, vendorId };
+const vendorInfo = getLoggedinUser()?.user?.user?.vendor?.vendor ?? null;
+
+const vendorProfileImage = getLoggedinUser()
+  ? imgURL + "/" + getLoggedinUser()?.user?.user?.vendor?.vendor?.profileImage
+  : null;
+
+export {
+  APIClient,
+  setAuthorization,
+  getLoggedinUser,
+  vendorId,
+  vendorInfo,
+  vendorProfileImage,
+};

@@ -35,9 +35,6 @@ import AddUser from "pages/Users/add-user";
 const authProtectedRoutes = [
   // Admin Pages
   { path: "/dashboard", component: <Dashboard /> },
-  // { path: "/dashboard/vendors", component: <Vendors /> },
-  // { path: "/dashboard/vendors/add", component: <VendorAdd /> },
-  // { path: "/dashboard/vendors/:vendorId", component: <VendorProfile /> },
 
   { path: "/dashboard/products", component: <Products /> }, // Used Later
   { path: "/dashboard/products/add", component: <CreateProduct /> }, // Used Later

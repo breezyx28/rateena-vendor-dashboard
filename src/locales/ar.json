@@ -721,5 +721,9 @@
   "User has been deleted successfully": "تم حذف المستخدم بنجاح",
   "Go to Users List": "الذهاب إلى قائمة المستخدمين",
   "Stay Here": "البقاء هنا",
-  "Don't Ask Again": "لا تسأل مرة أخرى"
+  "Don't Ask Again": "لا تسأل مرة أخرى",
+  "Please retry again, incorrect data.": "يرجى المحاولة مرة أخرى، البيانات غير صحيحة.",
+  "Admin": "مدير",
+  "Vendor": "بائع",
+  "Welcome": "مرحباً"
 }

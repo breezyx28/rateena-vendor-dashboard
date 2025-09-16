@@ -8,12 +8,15 @@ import {
 } from "reactstrap";
 import { createSelector } from "reselect";
 import { useDispatch, useSelector } from "react-redux";
+import { useTranslation } from "react-i18next";
 
 //import images
 import avatar1 from "../../assets/images/users/avatar-1.jpg";
 import { logoutUser } from "slices/thunks";
+import { vendorInfo, vendorProfileImage } from "services/api-handles";
 
 const ProfileDropdown = () => {
+  const { t } = useTranslation();
   const profiledropdownData = createSelector(
     (state: any) => state.Profile,
     (user) => user.user
@@ -32,7 +35,7 @@ const ProfileDropdown = () => {
       const obj: any = JSON.parse(authUSer);
       console.log("user-data: ", obj);
 
-      setUserName(obj.user.user.isSuperAdmin ? "Admin" : "Vendor");
+      setUserName(obj.user.user.isSuperAdmin ? t("Admin") : t("Vendor"));
     }
   }, [userName, user]);
 
@@ -52,23 +55,25 @@ const ProfileDropdown = () => {
           <span className="d-flex align-items-center">
             <img
               className="rounded-circle header-profile-user"
-              src={avatar1}
+              src={vendorProfileImage ?? avatar1}
               alt="Header Avatar"
             />
             <span className="text-start ms-xl-2">
               <span className="d-none d-xl-inline-block ms-1 fw-medium user-name-text">
                 {" "}
-                {userName || "Admin"}
+                {userName || t("Admin")}
               </span>
               <span className="d-none d-xl-block ms-1 fs-12 text-muted user-name-sub-text">
-                Founder
+                {vendorInfo?.fullName ?? "---"}
               </span>
             </span>
           </span>
         </DropdownToggle>
         <DropdownMenu className="dropdown-menu-end">
-          <h6 className="dropdown-header">Welcome {userName}!</h6>
-          <DropdownItem className="p-0">
+          <h6 className="dropdown-header">
+            {t("Welcome")} {vendorInfo?.fullName ?? "---"}!
+          </h6>
+          {/* <DropdownItem className="p-0">
             <Link to="/profile" className="dropdown-item">
               <i className="mdi mdi-account-circle text-muted fs-16 align-middle me-1"></i>
               <span className="align-middle">Profile</span>
@@ -92,8 +97,8 @@ const ProfileDropdown = () => {
               <span className="align-middle">Help</span>
             </Link>
           </DropdownItem>
-          <div className="dropdown-divider"></div>
-          <DropdownItem className="p-0">
+          <div className="dropdown-divider"></div> */}
+          {/* <DropdownItem className="p-0">
             <Link to="/pages-profile" className="dropdown-item">
               <i className="mdi mdi-wallet text-muted fs-16 align-middle me-1"></i>{" "}
               <span className="align-middle">
@@ -115,7 +120,7 @@ const ProfileDropdown = () => {
               <i className="mdi mdi-lock text-muted fs-16 align-middle me-1"></i>{" "}
               <span className="align-middle">Lock screen</span>
             </Link>
-          </DropdownItem>
+          </DropdownItem> */}
           <DropdownItem className="p-0">
             <Link
               to="/logout"
@@ -124,7 +129,7 @@ const ProfileDropdown = () => {
             >
               <i className="mdi mdi-logout text-muted fs-16 align-middle me-1"></i>{" "}
               <span className="align-middle" data-key="t-logout">
-                Logout
+                {t("Logout")}
               </span>
             </Link>
           </DropdownItem>

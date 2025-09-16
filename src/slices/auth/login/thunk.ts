@@ -34,6 +34,7 @@ export const loginUser = (user: any, history: any) => async (dispatch: any) => {
       }, 1000);
     }
   } catch (error) {
+    console.log("login-error: ", error);
     dispatch(apiError(error));
   }
 };

@@ -85,7 +85,7 @@ const Login = (props: any) => {
     }
   }, [dispatch, errorMsg]);
 
-  document.title = "Basic SignIn | Rateena - E-Shop Vendor Panel";
+  document.title = "login | Rateena - E-Shop Vendor Panel";
   return (
     <React.Fragment>
       <ParticlesAuth>
@@ -99,9 +99,6 @@ const Login = (props: any) => {
                       <img src={logoLight} alt="" height="20" />
                     </Link>
                   </div>
-                  <p className="mt-3 fs-15 fw-medium">
-                    {t("Premium Admin & Dashboard Template")}
-                  </p>
                 </div>
               </Col>
             </Row>
@@ -119,6 +116,11 @@ const Login = (props: any) => {
                     {error?.message && error ? (
                       <Alert color="danger"> {error?.message} </Alert>
                     ) : null}
+                    {error && (
+                      <Alert color="danger">
+                        {t("Please retry again, incorrect data.")}
+                      </Alert>
+                    )}
                     <div className="p-2 mt-4">
                       <Form
                         onSubmit={(e) => {
