@@ -733,5 +733,7 @@
   "Final Price": "السعر النهائي",
   "Quantity:": "الكمية:",
   "Low stock! Please update quantity": "مخزون قليل! يرجى تحديث الكمية",
-  "Update Quantity": "تحديث الكمية"
+  "Update Quantity": "تحديث الكمية",
+  "Categories Management": "إدارة الأصناف",
+  "Filter by Status": "تصفية حسب الحالة"
 }

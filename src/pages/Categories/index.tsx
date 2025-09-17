@@ -42,7 +42,10 @@ const Categories = () => {
     <React.Fragment>
       <div className="page-content">
         <Container fluid>
-          <BreadCrumb title="Categories" pageTitle="Categories Management" />
+          <BreadCrumb
+            title={t("Categories")}
+            pageTitle={t("Categories Management")}
+          />
           <Row>
             <Col lg={12}>
               <Card>

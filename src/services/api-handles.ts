@@ -174,6 +174,7 @@ export {
   APIClient,
   setAuthorization,
   getLoggedinUser,
+  getCurrentLanguage,
   vendorId,
   vendorInfo,
   vendorProfileImage,

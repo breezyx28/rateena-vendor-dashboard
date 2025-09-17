@@ -7,6 +7,7 @@ import {
   setLoading,
 } from "./reducer";
 import { postLogin } from "services/Auth";
+import { getCurrentLanguage } from "services/api-handles";
 
 export const loginUser = (user: any, history: any) => async (dispatch: any) => {
   try {
@@ -25,7 +26,11 @@ export const loginUser = (user: any, history: any) => async (dispatch: any) => {
 
       // @ts-ignore
       if (data?.role !== "VENDOR") {
-        throw new Error("You are not authorized to access this application");
+        throw new Error(
+          getCurrentLanguage() == "en"
+            ? "You are not authorized to access this application"
+            : "مستخدم غير مصرح"
+        );
       }
 
       dispatch(loginSuccess(data));

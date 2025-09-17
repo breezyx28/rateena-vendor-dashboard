@@ -28,7 +28,7 @@ const DeleteConfirmationModal: React.FC<DeleteConfirmationModalProps> = ({
       confirmButtonColor: "#d33",
       cancelButtonColor: "#3085d6",
       confirmButtonText: t("Yes, delete it!"),
-      cancelButtonText: t("Cancel")
+      cancelButtonText: t("Cancel"),
     });
 
     if (result.isConfirmed) {
@@ -38,7 +38,7 @@ const DeleteConfirmationModal: React.FC<DeleteConfirmationModalProps> = ({
         text: t("User has been deleted successfully"),
         icon: "success",
         timer: 2000,
-        showConfirmButton: false
+        showConfirmButton: false,
       });
       tog_standard();
     }
@@ -71,10 +71,12 @@ const DeleteConfirmationModal: React.FC<DeleteConfirmationModalProps> = ({
                 style={{ fontSize: "3rem" }}
               ></i>
             </div>
-            <h5 className="mb-3">{t("Are you sure you want to delete this user?")}</h5>
+            <h5 className="mb-3">
+              {t("Are you sure you want to delete this user?")}
+            </h5>
             {userName && (
               <p className="text-muted mb-4">
-                {t("User:")}{" "}<strong>{userName}</strong> ({t("ID:")}{" "}{userId})
+                {t("User:")} <strong>{userName}</strong> ({t("ID:")} {userId})
               </p>
             )}
           </div>

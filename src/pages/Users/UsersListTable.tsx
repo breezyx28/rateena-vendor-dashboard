@@ -21,6 +21,7 @@ const UsersListTable = ({ data }: { data: any[] }) => {
   ] = useState<boolean>(false);
   const [userToDelete, setUserToDelete] = useState<any>(null);
   const [selectedUserData, setSelectedUserData] = useState<any>(null);
+  const [selectedUserResetData, setSelectedUserResetData] = useState<any>(null);
 
   console.log("data: ", data);
 
@@ -117,7 +118,7 @@ const UsersListTable = ({ data }: { data: any[] }) => {
                   }}
                 >
                   <span className="lh-1 align-middle link-secondary">
-                    <i className="las la-pen"></i>
+                    <i className="las la-pen" style={{ fontSize: "18px" }}></i>
                   </span>
                 </li>
 
@@ -129,21 +130,27 @@ const UsersListTable = ({ data }: { data: any[] }) => {
                   onClick={() => handleDeleteClick(row)}
                 >
                   <span className="lh-1 align-middle link-danger">
-                    <i className="las la-trash-alt"></i>
+                    <i
+                      className="las la-trash-alt"
+                      style={{ fontSize: "18px" }}
+                    ></i>
                   </span>
                 </li>
 
-                <li
+                {/* <li
                   style={{
                     cursor: "pointer",
                   }}
                   className="list-inline-item"
-                  onClick={() => tog_resetPasswordModal()}
+                  onClick={() => {
+                    tog_resetPasswordModal();
+                    setSelectedUserResetData(row);
+                  }}
                 >
                   <span className="lh-1 align-middle link-warning">
-                    <i className="ri-key-line"></i>
+                    <i className="ri-key-line" style={{ fontSize: "18px" }}></i>
                   </span>
-                </li>
+                </li> */}
               </ul>
             </div>
           );
@@ -163,10 +170,11 @@ const UsersListTable = ({ data }: { data: any[] }) => {
         customPageSize={5}
         SearchPlaceholder={t("Search...")}
       />
-      <ResetPasswordModal
+      {/* <ResetPasswordModal
         modal_standard={reset_password_modal_standard}
         tog_standard={tog_resetPasswordModal}
-      />
+        data={selectedUserResetData}
+      /> */}
       <UpdateModal
         modal_standard={update_user_modal_standard}
         tog_standard={tog_updateUserModal}

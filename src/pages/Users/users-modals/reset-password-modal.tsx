@@ -13,15 +13,19 @@ interface ResetPasswordModalProps {
   modal_standard: boolean;
   tog_standard: () => void;
   userId?: string;
+  data: any;
 }
 
 const ResetPasswordModal: React.FC<ResetPasswordModalProps> = ({
   modal_standard,
   tog_standard,
   userId,
+  data,
 }) => {
   const { t } = useTranslation();
   const dispatch: any = useDispatch();
+
+  console.log("data: ", data);
 
   const selectLayoutState = (state: any) => state.Users;
   const selectLayoutProperties = createSelector(selectLayoutState, (state) => ({
@@ -46,7 +50,7 @@ const ResetPasswordModal: React.FC<ResetPasswordModalProps> = ({
   const validation: any = useFormik({
     enableReinitialize: true,
     initialValues: {
-      phone: "",
+      phone: data?.phone ?? "",
       new_password: "",
       new_password_confirmation: "",
     },
@@ -110,7 +114,7 @@ const ResetPasswordModal: React.FC<ResetPasswordModalProps> = ({
                     {t("phone")}
                   </Label>
                   <Input
-                    type="password"
+                    type="text"
                     className="form-control"
                     id="phone"
                     name="phone"

@@ -63,14 +63,16 @@ const AddUser: React.FC = () => {
         denyButtonColor: "#6c757d",
         buttonsStyling: true,
         customClass: {
-          actions: 'swal2-actions-flex'
-        }
+          actions: "swal2-actions-flex",
+        },
       }).then((result) => {
-        const checkbox = document.getElementById('dontAskAgain') as HTMLInputElement;
+        const checkbox = document.getElementById(
+          "dontAskAgain"
+        ) as HTMLInputElement;
         if (checkbox?.checked) {
           localStorage.setItem("skipUserNavigationPrompt", "true");
         }
-        
+
         if (result.isConfirmed) {
           navigate("/dashboard/users");
         }
@@ -113,122 +115,130 @@ const AddUser: React.FC = () => {
   });
 
   return (
-    <Container fluid>
-      <Row>
-        <Col lg={12}>
-          <Card>
-            <CardHeader>
-              <h4 className="card-title mb-0">{t("Add User")}</h4>
-            </CardHeader>
-            <CardBody>
-              <Form
-                onSubmit={(e) => {
-                  e.preventDefault();
-                  validation.handleSubmit();
-                  return false;
-                }}
-                id="add-vendor-user-form"
-              >
-                <Row className="gy-4">
-                  <Col xxl={12} md={12}>
-                    <div>
-                      <Label htmlFor="phone" className="form-label">
-                        {t("Phone")}
-                      </Label>
-                      <Input
-                        type="text"
-                        className="form-control"
-                        id="phone"
-                        name="phone"
-                        onChange={validation.handleChange}
-                        onBlur={validation.handleBlur}
-                        value={validation.values.phone || ""}
-                        invalid={
-                          validation.touched.phone && validation.errors.phone
-                            ? true
-                            : false
-                        }
-                      />
-                    </div>
-                  </Col>
-                  <Col xxl={12} md={12}>
-                    <div>
-                      <Label htmlFor="email" className="form-label">
-                        {t("Email")}
-                      </Label>
-                      <div className="form-icon">
-                        <Input
-                          type="email"
-                          className="form-control"
-                          id="email"
-                          name="email"
-                          onChange={validation.handleChange}
-                          onBlur={validation.handleBlur}
-                          value={validation.values.email || ""}
-                          invalid={
-                            validation.touched.email && validation.errors.email
-                              ? true
-                              : false
-                          }
-                        />
-                      </div>
-                    </div>
-                  </Col>
-                  <Col xxl={12} md={12}>
-                    <div>
-                      <Label htmlFor="password" className="form-label">
-                        {t("Password")}
-                      </Label>
-                      <Input
-                        type="password"
-                        className="form-control"
-                        id="password"
-                        name="password"
-                        onChange={validation.handleChange}
-                        onBlur={validation.handleBlur}
-                        value={validation.values.password || ""}
-                        invalid={
-                          validation.touched.password &&
-                          validation.errors.password
-                            ? true
-                            : false
-                        }
-                      />
-                    </div>
-                  </Col>
-                </Row>
-                <Button
-                  type={"submit"}
-                  id="add-vendor-user-btn"
-                  style={{
-                    visibility: "hidden",
-                  }}
-                >
-                  Submit
-                </Button>
-                <div className="text-end">
-                  <Button
-                    color="light"
-                    className="me-2"
-                    onClick={() => navigate("/users")}
-                  >
-                    {t("Cancel")}
-                  </Button>
-                  <Button
-                    color="primary"
-                    onClick={() => {
-                      document.getElementById("add-vendor-user-btn")?.click();
+    <React.Fragment>
+      <div className="page-content">
+        <Container fluid>
+          <Row>
+            <Col lg={12}>
+              <Card>
+                <CardHeader>
+                  <h4 className="card-title mb-0">{t("Add User")}</h4>
+                </CardHeader>
+                <CardBody>
+                  <Form
+                    onSubmit={(e) => {
+                      e.preventDefault();
+                      validation.handleSubmit();
+                      return false;
                     }}
+                    id="add-vendor-user-form"
                   >
-                    {t("Save User")}
-                  </Button>
-                </div>
-              </Form>
-            </CardBody>
-          </Card>
-        </Col>
-      </Row>
-    </Container>
+                    <Row className="gy-4">
+                      <Col xxl={12} md={12}>
+                        <div>
+                          <Label htmlFor="phone" className="form-label">
+                            {t("Phone")}
+                          </Label>
+                          <Input
+                            type="text"
+                            className="form-control"
+                            id="phone"
+                            name="phone"
+                            onChange={validation.handleChange}
+                            onBlur={validation.handleBlur}
+                            value={validation.values.phone || ""}
+                            invalid={
+                              validation.touched.phone &&
+                              validation.errors.phone
+                                ? true
+                                : false
+                            }
+                          />
+                        </div>
+                      </Col>
+                      <Col xxl={12} md={12}>
+                        <div>
+                          <Label htmlFor="email" className="form-label">
+                            {t("Email")}
+                          </Label>
+                          <div className="form-icon">
+                            <Input
+                              type="email"
+                              className="form-control"
+                              id="email"
+                              name="email"
+                              onChange={validation.handleChange}
+                              onBlur={validation.handleBlur}
+                              value={validation.values.email || ""}
+                              invalid={
+                                validation.touched.email &&
+                                validation.errors.email
+                                  ? true
+                                  : false
+                              }
+                            />
+                          </div>
+                        </div>
+                      </Col>
+                      <Col xxl={12} md={12}>
+                        <div>
+                          <Label htmlFor="password" className="form-label">
+                            {t("Password")}
+                          </Label>
+                          <Input
+                            type="password"
+                            className="form-control"
+                            id="password"
+                            name="password"
+                            onChange={validation.handleChange}
+                            onBlur={validation.handleBlur}
+                            value={validation.values.password || ""}
+                            invalid={
+                              validation.touched.password &&
+                              validation.errors.password
+                                ? true
+                                : false
+                            }
+                          />
+                        </div>
+                      </Col>
+                    </Row>
+                    <Button
+                      type={"submit"}
+                      id="add-vendor-user-btn"
+                      style={{
+                        visibility: "hidden",
+                      }}
+                    >
+                      Submit
+                    </Button>
+                    <div className="text-end">
+                      <Button
+                        color="light"
+                        className="me-2"
+                        onClick={() => navigate("/users")}
+                      >
+                        {t("Cancel")}
+                      </Button>
+                      <Button
+                        color="primary"
+                        onClick={() => {
+                          document
+                            .getElementById("add-vendor-user-btn")
+                            ?.click();
+                        }}
+                      >
+                        {t("Save User")}
+                      </Button>
+                    </div>
+                  </Form>
+                </CardBody>
+              </Card>
+            </Col>
+          </Row>
+        </Container>
+      </div>
+    </React.Fragment>
   );
 };
 

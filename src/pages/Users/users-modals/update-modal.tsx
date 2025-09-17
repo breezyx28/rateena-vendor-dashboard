@@ -59,12 +59,12 @@ const UpdateModal: React.FC<AddModalProps> = ({
     initialValues: {
       email: userData?.email || "",
       phone: userData?.phone || "",
-      // password: "",
+      password: "",
     },
     validationSchema: Yup.object({
       email: Yup.string().required(t("Please Enter Your Email")),
       phone: Yup.string().required(t("Please Enter Your Phone Number")),
-      // password: Yup.string().required("Please Enter Your Password"),
+      password: Yup.string().required("Please Enter Your Password"),
     }),
     onSubmit: async (values) => {
       const result = await Swal.fire({
@@ -156,7 +156,7 @@ const UpdateModal: React.FC<AddModalProps> = ({
                   </div>
                 </div>
               </Col>
-              {/* <Col xxl={12} md={12}>
+              <Col xxl={12} md={12}>
                 <div>
                   <Label htmlFor="password" className="form-label">
                     Password
@@ -176,7 +176,7 @@ const UpdateModal: React.FC<AddModalProps> = ({
                     }
                   />
                 </div>
-              </Col> */}
+              </Col>
             </Row>
             <Button
               type={"submit"}
